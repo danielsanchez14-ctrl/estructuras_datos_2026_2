@@ -27,7 +27,7 @@ estructuras_datos_2026_2/
 - **Descripción:** Primer laboratorio del curso (MATRIZ DE 100_000*100_000 entradas)
 - **Archivo Principal:** `taller_1.ipynb` (Notebook Jupyter)
 - **Datos:** `matriz.txt` (Debe generarse cada vez que se clone el repositorio)
-- **Documentación:** `README.md` en la carpeta lab_01
+- **Documentación:** `README.md` en la carpeta lab_01 [Laboratorio 1](lab_01/README.md)
 
 ---
 
