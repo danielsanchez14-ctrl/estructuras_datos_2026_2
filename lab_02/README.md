@@ -45,7 +45,10 @@ Redacción co-creada con Claude AI.
 ## Cómo Usar
 
 Ejecuta las celdas del notebook en el órden de aparición.
+La visualización del árbol y las verificaciones son código que se mantiene en la celda,
+gracias a que el archivo es un notebook.
 
 ---
+
 
 *Taller del curso de Estructuras de Datos - 2026-2 - UdeA*
