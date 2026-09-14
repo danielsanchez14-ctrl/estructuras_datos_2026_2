@@ -18,7 +18,11 @@ estructuras_datos_2026_2/
 │
 ├── lab_01/                                      # Laboratorio 01
 │   ├── README.md                                # Documentación del laboratorio 01
-│   ├── taller_1.ipynb                           # Notebook de Jupyter con el taller 01
+│   └── taller_1.ipynb                           # Notebook de Jupyter con el taller 01
+│
+├── lab_02/                                      # Laboratorio 02
+│   ├── README.md                                # Documentación del laboratorio 02
+│   └── taller_2.ipynb                           # Notebook de Jupyter con el taller 02
 │
 └── reto_1_hashing_merkle_tree/                  # Reto 1 - Hashing y Merkle Tree
     ├── README.md                                # Documentación breve del reto 1

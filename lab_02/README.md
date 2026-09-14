@@ -9,7 +9,7 @@
 Implementar una solución para crear, visualizar y probar un árbol de Merkle en Python. Se busca demostrar algoritmos para resolver los problemas fundamentales de:
 
 - **Creación del árbol dada una colección de transacciones:** Se aprovecha la naturaleza recursiva de los árboles para implementar una estrategia "Top - down", donde se "baja" recursivamente hasta las hojas y desde ahí se comienza a "subir" construyendo nuevos nodos padres, hasta llegar a la raíz.
-- **El problema de la cantidad impar de transacciones** Para este caso, se utiliza la estrategia de copiado de un nodo que se detecte impar, esto se logra al validar la longitud de la lista de transacciones que se está analizando en cada nivel y duplicando el último nodo (solo si la longitud es impar).
+- **El problema de la cantidad impar de transacciones:** Para este caso, se utiliza la estrategia de copiado de un nodo que se detecte impar, esto se logra al validar la longitud de la lista de transacciones que se está analizando en cada nivel y duplicando el último nodo (solo si la longitud es impar).
 - **Pruebas de inclusión:** Se agregaron funciones dedicadas a la generación de la prueba, donde se busca recursivamente una transacción y se va registrando en una lista los nodos hermanos y su posición respecto al nodo de interés, desde la hoja (la transacción), pasando por cada padre en cada nivel del árbol.
 
 ---
@@ -24,6 +24,8 @@ Implementar una solución para crear, visualizar y probar un árbol de Merkle en
 ---
 
 ## Funciones Implementadas
+
+Redacción co-creada con Claude AI.
 
 | Función | Descripción |
 |---------|-------------|
