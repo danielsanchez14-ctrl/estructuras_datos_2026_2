@@ -33,6 +33,11 @@ estructuras_datos_2026_2/
 - **Datos:** `matriz.txt` (Debe generarse cada vez que se clone el repositorio).
 - **Documentación:** [Laboratorio 1](lab_01/README.md).
 
+### Lab 02
+- **Descripción:** Segundo laboratorio del curso (Merkle Tree).
+- **Archivo Principal:** `taller_2.ipynb` (Notebook Jupyter).
+- **Documentación:** [Laboratorio 2](lab_02/README.md).
+
 ### Reto 1 - Hashing y Merkle Tree
 - **Descripción:** Reto centrado en funciones hash y la construcción de un árbol Merkle para validar integridad y estructura de datos.
 - **Archivo Principal:** `reto_hashing_merkle_tree.ipynb` (Notebook Jupyter).
@@ -40,4 +45,4 @@ estructuras_datos_2026_2/
 
 ---
 
-*Última actualización: 2026-09-07*
+*Última actualización: 2026-09-14*
