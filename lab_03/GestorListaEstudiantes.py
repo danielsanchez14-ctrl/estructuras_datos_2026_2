@@ -27,10 +27,10 @@ class GestorListaEstudiantes(Estructura):
         """
         Busca todos los estudiantes cuyo id se encuentre dentro del rango inclusivo [lb, ub].
 
-        Ordena los datos por id y filtra los registros que cumplen con la condición del rango.
+        Filtra los registros que cumplen con la condición del rango y luego los ordena por id.
         """
-        datos_ordenados = sorted(self.datos, key=lambda estudiante: estudiante["id"])
-        coincidencias = [e for e in datos_ordenados if lb <= e["id"] <= ub]
+        
+        coincidencias = sorted((e for e in self.datos if lb <= e["id"] <= ub), key=lambda e: e["id"])
 
         if not coincidencias:
             return f"No se encontraron estudiantes en el rango [{lb}, {ub}]."
@@ -45,13 +45,12 @@ class GestorListaEstudiantes(Estructura):
         return "".join(resultado)
 
     def listar(self) -> str:
-        datos = sorted(self.datos, key= lambda estudiante : estudiante["id"])
-        listado = ""
+        datos = sorted(self.datos, key=lambda estudiante: estudiante["id"])
+        resultado = []
         for estudiante in datos:
-            listado += "Estudiante:\n"
-            listado += "["
+            resultado.append("Estudiante:\n[")
             for clave, valor in estudiante.items():
-                listado += f"{clave} : {valor} | "
-            listado += "]\n"
+                resultado.append(f"{clave} : {valor} | ")
+            resultado.append("]\n")
 
-        return listado      
+        return "".join(resultado)

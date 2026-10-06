@@ -179,8 +179,8 @@ class ABB(Estructura):
             lista, donde listar en orden requiere un sort completo).
 
             Se usa una lista auxiliar mutable (resultado) para ir acumulando los fragmentos de texto y luego
-            unirlos con "".join(), en vez de concatenar strings directamente en cada llamada recursiva,
-            ya que la concatenación repetida de strings es más costosa en tiempo (cada concatenación crea
+            unirlos con "".join(), ya que la concatenación repetida de strings es 
+            más costosa en tiempo (cada concatenación crea
             un nuevo string en memoria).
         """
         resultado = []
@@ -230,3 +230,36 @@ class ABB(Estructura):
         """
         for estudiante in datos:
             self.insertar(estudiante)
+
+    def altura(self) -> int:
+        """
+        Número de niveles del árbol (vacío = 0, solo la raíz = 1).
+
+        Recorre el árbol nivel por nivel. La lista `nivel` contiene todos los nodos
+        de un mismo nivel. En cada vuelta se cuenta un nivel y se reemplaza `nivel`
+        por la lista de los hijos de esos nodos, es decir, el nivel de abajo.
+        Cuando ya no hay hijos, la lista queda vacía y el ciclo termina.
+        Es iterativo (sin recursión), para que funcione con árboles degenerados.
+
+        Origen: generada con asistencia de IA (Claude, Anthropic, octubre 2026),
+        autorizado por el enunciado del Laboratorio 3.
+        """
+        if self.raiz is None:
+            return 0
+
+        nivel = [self.raiz]   # nivel 1: solo la raíz
+        altura = 0
+
+        while len(nivel) > 0:
+            altura += 1                    # contamos el nivel actual
+
+            siguiente_nivel = []           # aquí se juntan los nodos del nivel de abajo
+            for nodo in nivel:
+                if nodo.hijo_izquierdo is not None:
+                    siguiente_nivel.append(nodo.hijo_izquierdo)
+                if nodo.hijo_derecho is not None:
+                    siguiente_nivel.append(nodo.hijo_derecho)
+
+            nivel = siguiente_nivel        # bajamos un nivel
+
+        return altura

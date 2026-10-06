@@ -18,5 +18,5 @@ class Estructura(ABC):
         pass
 
     @abstractmethod
-    def buscar_rango_id(lb:int, ub:int) -> str:
+    def buscar_rango_id(self, lb:int, ub:int) -> str:
         pass

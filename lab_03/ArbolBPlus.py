@@ -84,6 +84,8 @@ class ArbolBPlus(Estructura):
 
                 self._insertar_en_padre(hoja_objetivo, clave_intermedia, nodo_division)
 
+        return estudiante
+
     def buscar(self, id_estudiante: int) -> str:
         """
             Busca un estudiante por su id, descendiendo hasta la hoja correspondiente
@@ -311,4 +313,20 @@ class ArbolBPlus(Estructura):
                 nodo_nuevo.padre = nodo_division_padre
 
             self._insertar_en_padre(padre, nueva_clave_intermedia, nodo_division_padre)
+
+    def altura(self) -> int:
+        """
+        Número de niveles del árbol B+ (vacío = 0, solo una hoja = 1).
+        En un B+ todas las hojas están a la misma profundidad, así que basta
+        bajar siempre por el primer puntero hasta llegar a una hoja, contando niveles.
+
+        Origen: generada con asistencia de IA (Claude, Anthropic, octubre 2026),
+        autorizado por el enunciado del Laboratorio 3.
+        """
+        altura = 0
+        nodo = self.raiz
+        while nodo is not None:
+            altura += 1
+            nodo = None if nodo.es_hoja else nodo.punteros[0]
+        return altura
 
