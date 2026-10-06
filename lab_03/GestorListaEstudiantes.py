@@ -1,4 +1,4 @@
-from .Estructura import Estructura
+from Estructura import Estructura
 
 class GestorListaEstudiantes(Estructura):
     """

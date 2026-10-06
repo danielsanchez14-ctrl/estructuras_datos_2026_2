@@ -1,4 +1,4 @@
-from .Estructura import Estructura
+from Estructura import Estructura
 import math
 
 class ArbolBPlus(Estructura):
