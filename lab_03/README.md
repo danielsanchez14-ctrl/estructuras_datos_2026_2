@@ -78,6 +78,9 @@ La comparación se realizó con varias configuraciones:
 
 La idea central fue comparar el crecimiento del tiempo frente a `N` y verificar si el comportamiento observado se ajusta a la complejidad teórica de cada estructura.
 
+Sobre los tiempos medidos, es importante recalcar que el objetivo del laboratorio es evaluar cómo escala el costo temporal de cada operación (búsqueda, inserción, listado y rangos) al aumentar el tamaño de los datos ($N$), validando así las complejidades teóricas ($O(N)$, $O(\log N)$, $O(N \log N)$). Dado que una operación individual en estructuras jerárquicas como el ABB o el Árbol B+ se ejecuta en pocos microsegundos, las mediciones crudas del sistema se capturan en nanosegundos ($ns$).
+
+Para facilitar la lectura en las tablas de resumen, los tiempos se convierten a microsegundos ($\mu s$) o milisegundos ($ms$) según el experimento para evitar notaciones recargadas de ceros. En las gráficas logarítmicas, el eje vertical se estandariza en segundos ($s$), permitiendo comparar de forma uniforme y sin distorsiones tanto las ejecuciones unitarias como los lotes acumulados ($M$ consultas). 
 ---
 
 ## Experimentos Realizados
