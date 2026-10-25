@@ -86,7 +86,7 @@ class Quadtree:
         else:
             # Caso recursivo: subdividir una región en cuatro cuadrantes y distribuir los puntos.
 
-            # Operaciones sobre los datos (divdir la zona en cuatro).
+            # Operaciones sobre los datos (dividir la zona en cuatro).
             x_mid = (x_min + x_max) / 2
             y_mid = (y_min + y_max) / 2
 
@@ -128,7 +128,7 @@ class Quadtree:
             return
 
         if self._distance_squared_to_region(central_point, node) > radius**2:
-            return # Escenario de poda, si un nodo/región cuadrada no está intersectada/solapada con el círculo, se descarta pot completo.
+            return # Escenario de poda, si un nodo/región cuadrada no está intersectada/solapada con el círculo, se descarta por completo.
 
         if not node.children: # Si el nodo no tiene hijos (es hoja), analizamos la distancia de cada punto respecto al centro y el radio.
             for point in node.points:
