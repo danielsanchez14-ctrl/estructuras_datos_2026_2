@@ -362,6 +362,8 @@ class Plotter:
         Todas las figuras tienen dos paneles: vista global (dónde cae la consulta
         en la ciudad) y zoom (para poder ver los puntos individuales, porque un
         círculo de 500 m es muy pequeño en una ciudad de 10 km).
+
+        Métodos cocreados con Claude AI, Anthropic (25/10/2026)
     """
 
     @staticmethod
