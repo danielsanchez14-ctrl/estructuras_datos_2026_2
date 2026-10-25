@@ -200,6 +200,9 @@ class Quadtree:
         
 
     def k_nearest_neighbors_search(self, query_point: Point, k : int = 2) -> list[Point]:
+        """
+            Implementación de la búsqueda de los k vecinos más cercanos a un punto de consulta.
+        """
         if self.root is None or k <= 0:
             return []
 
@@ -211,6 +214,11 @@ class Quadtree:
         return [point for _, point in sorted(priority_queue, reverse=True)]
 
     def _visit_k_nearest_neighbor_search(self, node: QuadNode, query_point: Point, k: int, priority_queue: list) -> None:
+        """
+            Algoritmo auxiliar recursivo que ejecuta la visita de nodos para la búsqueda de los k vecinos más cercanos.
+            Utiliza una cola de prioridad para ejecutar la lógica de guardar los vecinos más cercanos y aprovecha la
+            estructura del árbol para realizar podas de ramas cuya distancia no mejora la solución.
+        """
 
         if node is None:
             return
