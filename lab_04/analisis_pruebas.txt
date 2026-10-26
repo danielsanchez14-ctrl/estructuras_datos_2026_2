@@ -25,4 +25,4 @@ Promedio de puntos encontrados      74.8
                                     Métrica          Resultado
                             Consulta (x, y) (8818.4, 4998.1) m
                           Distancia al 1-NN            72.57 m
-Distancia al vecino 2 (más lejano de los k)            75.88 m
+Distancia al vecino 5 (más lejano de los k)           156.59 m

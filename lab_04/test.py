@@ -699,7 +699,7 @@ if __name__ == "__main__":
     # Vecino más cercano
     nearest = tree.nearest_neighbor_search(query)
     # K vecinos más cercanos
-    k_nearest = tree.k_nearest_neighbors_search(query)
+    k_nearest = tree.k_nearest_neighbors_search(query, k=5)
 
     assert nearest is not None
 
