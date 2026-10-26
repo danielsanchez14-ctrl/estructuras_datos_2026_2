@@ -6,7 +6,7 @@ import os
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.axes import Axes
-
+import pandas as pd
 
 class BruteForceAlgorithm:
     """
@@ -511,20 +511,209 @@ class Plotter:
             plt.show()
         plt.close(fig)
 
+
+class TestReport:
+    """
+        Genera el análisis de las pruebas realizadas a partir de datos medidos:
+        1. Resultado de las pruebas unitarias.
+        2. Estructura del árbol (profundidad, hojas, puntos por hoja) según capacity.
+        3. Cantidad de puntos encontrados por consultas de 500 m.
+        4. Distancias reales (en metros) de la consulta de las gráficas.
+        5. Verificación de que las imágenes se generaron.
+        Métodos cocreados con Claude AI, Anthropic (25/10/2026)
+    
+    """
+
+    @staticmethod
+    def collect_leaves(node: QuadNode) -> list[QuadNode]:
+        """Auxiliar: devuelve los nodos hoja del árbol (no sus puntos)."""
+        if not node.children:
+            return [node]
+
+        leaves: list[QuadNode] = []
+        for child in node.children:
+            leaves.extend(TestReport.collect_leaves(child))
+        return leaves
+
+    @staticmethod
+    def unit_tests_section(result: unittest.TestResult) -> list[str]:
+        """
+            Resume el resultado de unittest (las pruebas unitarias) y 
+            cuántas comparaciones contra fuerza bruta se hicieron 
+            (las pruebas 2, 3 y 6 hacen NUM_QUERIES consultas por cada capacidad).
+        """
+        status = "TODAS PASARON" if result.wasSuccessful() else "HAY FALLOS"
+        comparisons_per_test = NUM_QUERIES * len(CAPACITIES)
+        data = [
+            ("Pruebas ejecutadas", result.testsRun),
+            ("Fallos", len(result.failures)), # Una firmación assert no se cumplió.
+            ("Errores", len(result.errors)), # Una prueba no pudo completarse.
+            ("Estado", status),
+            ("Capacidades probadas", CAPACITIES),
+            ("Comparaciones por prueba (pruebas 2, 3 y 6)", f"{NUM_QUERIES} consultas x {len(CAPACITIES)} capacidades " f"= {comparisons_per_test}")
+        ]
+
+        df = pd.DataFrame(data, columns=["Indicador", "Resultado"])
+
+        return [ "1. PRUEBAS UNITARIAS", df.to_string(index=False), ""]
+
+    @staticmethod
+    def tree_section(points: list[Point]) -> list[str]:
+        """
+            Resume la estructura real del árbol para cada capacity.
+
+            La profundidad se compara con max_depth (20).
+            Si la hoja con más puntos supera capacity, el límite de
+            profundidad impidió subdividir suficientemente el árbol.
+        """
+        rows = []
+
+        for capacity in CAPACITIES:
+
+            tree = Quadtree.build(points, 0, 0, CITY_SIZE, CITY_SIZE, capacity=capacity)
+            leaves = TestReport.collect_leaves(tree.root)
+            depth = TestQuadtree.tree_depth(tree.root)
+            empty_leaves = sum(1 for leaf in leaves if not leaf.points)
+            max_points = max(len(leaf.points) for leaf in leaves)
+            cut_by_max_depth = max_points > capacity
+
+            rows.append({
+            "Capacidad": capacity,
+            "Profundidad": depth,
+            "No. Hojas": len(leaves),
+            "No. Hojas vacías": empty_leaves,
+            "No. Máx. puntos/hoja": max_points,
+            "¿max_depth cortó?": "Sí" if cut_by_max_depth else "No",
+            })
+
+            df = pd.DataFrame(rows)
+            return [
+                f"2. ESTRUCTURA DEL ÁRBOL ({len(points)} puntos, "
+                f"ciudad de {CITY_SIZE} x {CITY_SIZE} m)",
+                df.to_string(index=False),
+                "",
+            ]
+
+    @staticmethod
+    def range_section(tree: Quadtree) -> list[str]:
+        """
+                Cuántos puntos encuentra una consulta de 500 m, en promedio.
+                Resume los resultados de NUM_QUERIES = 200 consultas de range search
+                con un radio de RADIUS = 500 metros.
+        """
+        rng = random.Random(SEED)
+        counts: list[int] = []
+        for _ in range(NUM_QUERIES):
+            query: Point = (
+                rng.uniform(0, CITY_SIZE),
+                rng.uniform(0, CITY_SIZE)
+            )
+            counts.append(len(tree.range_search(query, RADIUS)))
+
+        data = {
+
+        "Métrica": [
+            "Promedio de puntos encontrados",
+            "Mínimo de puntos encontrados",
+            "Máximo de puntos encontrados",
+            "Consultas sin resultados",
+        ],
+        "Resultado": [
+            f"{sum(counts) / len(counts):.1f}",
+            min(counts),
+            max(counts),
+            counts.count(0), # Cuenta cuántas veces aparece el 0 en la lista counts
+            ],
+
+        }
+
+        df = pd.DataFrame(data)
+
+        return [
+            f"3. RANGE SEARCH (radio {RADIUS} m, "
+            f"{NUM_QUERIES} consultas aleatorias)",
+            df.to_string(index=False),]
+
+    
+    @staticmethod
+    def neighbors_section(query: Point, nearest: Point, k_nearest: list[Point]) -> list[str]:
+        """
+        Muestra las distancias reales en metros desde la consulta hasta
+        el vecino más cercano y el vecino más lejano de los k seleccionados.
+        """
+        dist = BruteForceAlgorithm.distance_squared
+
+        data = {
+            "Métrica": [
+                "Consulta (x, y)",
+                "Distancia al 1-NN",
+                f"Distancia al vecino {len(k_nearest)} (más lejano de los k)",
+            ],
+            "Resultado": [
+                f"({query[0]:.1f}, {query[1]:.1f}) m",
+                f"{dist(nearest, query) ** 0.5:.2f} m",
+                f"{dist(k_nearest[-1], query) ** 0.5:.2f} m",
+            ],
+        }
+
+        df = pd.DataFrame(data)
+
+        return [
+            "4. VECINOS MÁS CERCANOS (consulta de las gráficas)",
+            df.to_string(index=False),
+            "",
+        ]
+
+    @staticmethod
+    def save(lines: list[str], filename: str = "analisis_pruebas.txt") -> None:
+        """Guarda junto a test.py (UTF-8 por los tildes)."""
+        text = "\n".join(lines)
+        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
+        with open(path, "w", encoding="utf-8") as file:
+            file.write(text)
+
 if __name__ == "__main__":
-    unittest.main(exit=False)
+    program = unittest.main(exit = False)
 
     rng = random.Random(SEED)
+    # Generamos 10 mil puntos aleatorios
     points = [(rng.uniform(0, CITY_SIZE), rng.uniform(0, CITY_SIZE))
               for _ in range(NUM_POINTS)]
-    tree = Quadtree.build(points, 0, 0, CITY_SIZE, CITY_SIZE)
+
+    # Construimos el árbol
+    tree = Quadtree.build(
+        points=points,
+        x_min= 0,
+        y_min= 0,
+        x_max= CITY_SIZE,
+        y_max= CITY_SIZE,
+        capacity= 1,
+        max_depth= 20
+    )
+
+    #Punto de consulta aleatorio
     query: Point = (rng.uniform(0, CITY_SIZE), rng.uniform(0, CITY_SIZE))
 
+    # Lista de puntos (range search)
     found = tree.range_search(query, RADIUS)
+    # Vecino más cercano
     nearest = tree.nearest_neighbor_search(query)
-    k_nearest = tree.k_nearest_neighbors_search(query, 5)
+    # K vecinos más cercanos
+    k_nearest = tree.k_nearest_neighbors_search(query)
+
     assert nearest is not None
 
+    # Gráficas
     Plotter.plot_range_search(points, query, RADIUS, found)
     Plotter.plot_nearest_neighbors(points, query, nearest, k_nearest)
     Plotter.plot_tree_divisions(points, tree)
+
+    report = ["=" * 60, "ANÁLISIS DE LAS PRUEBAS", "=" * 60, ""]
+
+    report.extend(TestReport.unit_tests_section(program.result))
+    report.extend(TestReport.tree_section(points))
+    report.extend(TestReport.range_section(tree))
+    report.extend(TestReport.neighbors_section(query, nearest, k_nearest))
+
+    print("\n".join(report))
+    TestReport.save(report)

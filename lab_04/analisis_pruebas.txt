@@ -1,0 +1,28 @@
+============================================================
+ANÁLISIS DE LAS PRUEBAS
+============================================================
+
+1. PRUEBAS UNITARIAS
+                                  Indicador                           Resultado
+                         Pruebas ejecutadas                                   6
+                                     Fallos                                   0
+                                    Errores                                   0
+                                     Estado                       TODAS PASARON
+                       Capacidades probadas                           (1, 4, 8)
+Comparaciones por prueba (pruebas 2, 3 y 6) 200 consultas x 3 capacidades = 600
+
+2. ESTRUCTURA DEL ÁRBOL (10000 puntos, ciudad de 10000 x 10000 m)
+ Capacidad  Profundidad  No. Hojas  No. Hojas vacías  No. Máx. puntos/hoja ¿max_depth cortó?
+         1           13      21631             11631                     1                No
+
+3. RANGE SEARCH (radio 500 m, 200 consultas aleatorias)
+                       Métrica Resultado
+Promedio de puntos encontrados      74.8
+  Mínimo de puntos encontrados        19
+  Máximo de puntos encontrados       113
+      Consultas sin resultados         0
+4. VECINOS MÁS CERCANOS (consulta de las gráficas)
+                                    Métrica          Resultado
+                            Consulta (x, y) (8818.4, 4998.1) m
+                          Distancia al 1-NN            72.57 m
+Distancia al vecino 2 (más lejano de los k)            75.88 m
