@@ -1,0 +1,67 @@
+============================================================
+ANÁLISIS DE RENDIMIENTO
+============================================================
+
+Consultas por tamaño de entrada: 200
+Radio de búsqueda: 500 m
+Número de vecinos: 5
+Repeticiones por medición: 10 (se reporta el promedio)
+
+Range search (500 m): tiempo promedio por consulta
+       Quadtree (µs)  Fuerza bruta (µs)
+n                                      
+100            36.31              58.69
+500            80.40             305.58
+1000          118.79             561.56
+5000          304.49            2819.27
+10000         574.08            5874.09
+50000        2134.38           28512.45
+El Quadtree es más rápido desde el menor tamaño medido (n = 100).
+
+Vecino más cercano (1-NN): tiempo promedio por consulta
+       Quadtree (µs)  Fuerza bruta (µs)
+n                                      
+100           149.75              47.75
+500           403.93             239.09
+1000          486.39             452.03
+5000         1303.71            2283.56
+10000        2219.10            5276.54
+50000        4927.41           23895.65
+El Quadtree es más rápido de forma sostenida desde n = 5000.
+
+5 vecinos más cercanos (k-NN): tiempo promedio por consulta
+       Quadtree (µs)  Fuerza bruta (µs)
+n                                      
+100           249.92              76.20
+500           666.07             322.15
+1000          819.81             623.77
+5000         2322.38            3225.13
+10000        4614.21            6503.42
+50000        8858.47           31725.67
+El Quadtree es más rápido de forma sostenida desde n = 5000.
+
+Construcción del Quadtree (ms)
+       Tiempo promedio (ms)
+n                          
+100                    0.57
+500                    2.84
+1000                   5.55
+5000                  27.83
+10000                 63.17
+50000                335.50
+
+Pendiente estimada de la construcción
+  Quadtree: 1.03
+
+Pendiente estimada en escala log-log
+Range search (500 m)
+  Quadtree: 0.65
+  Fuerza bruta: 0.99
+
+Vecino más cercano (1-NN)
+  Quadtree: 0.57
+  Fuerza bruta: 1.01
+
+5 vecinos más cercanos (k-NN)
+  Quadtree: 0.59
+  Fuerza bruta: 0.98
