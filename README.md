@@ -29,6 +29,15 @@ estructuras_datos_2026_2/
 │   ├── informe.ipynb                            # Notebook principal del laboratorio 03
 │   └── ...                                      # Implementaciones y resultados del estudio
 │
+├── lab_04/                                      # Laboratorio 04: búsqueda espacial con PR Quadtree
+│   ├── README.md                                # Documentación, metodología y resultados del laboratorio 04
+│   ├── Quadtree.py                              # Implementación del PR Quadtree
+│   ├── test.py                                  # Pruebas unitarias, comparaciones y visualizaciones
+│   ├── analisis.py                              # Benchmark de rendimiento
+│   ├── analisis_pruebas.txt                     # Reporte generado por test.py
+│   ├── analisis_rendimiento.txt                 # Reporte generado por analisis.py
+│   └── imagenes/                                # Gráficas de pruebas y rendimiento
+│
 ├── reto_1_hashing_merkle_tree/                  # Reto 1 - Hashing y Merkle Tree
 │   ├── README.md                                # Documentación breve del reto 1
 │   └── reto_hashing_merkle_tree.ipynb           # Notebook del reto 1
@@ -58,6 +67,21 @@ estructuras_datos_2026_2/
 - **Temas principales:** búsquedas, inserciones, listados ordenados y consultas por rango; análisis de rendimiento frente a distintos tamaños de entrada y orden de datos.
 - **Documentación:** [Laboratorio 3](lab_03/README.md).
 
+### Lab 04 - Búsqueda espacial con PR Quadtree
+- **Descripción:** Implementación de un árbol PR Quadtree para organizar puntos de entrega bidimensionales dentro de una ciudad de 10.000 × 10.000 metros.
+- **Operaciones:** búsqueda por rango con radio de 500 m, vecino más cercano (1-NN) y $k$ vecinos más cercanos (k-NN).
+- **Validación:** pruebas unitarias y comparación de las búsquedas del Quadtree con algoritmos de fuerza bruta; incluye casos límite y generación de visualizaciones.
+- **Análisis de rendimiento:** compara la construcción del árbol y los tiempos de búsqueda frente a fuerza bruta para entradas de 100 a 50.000 puntos. Usa 200 consultas por tamaño, 10 repeticiones y reporta promedios, puntos de cruce y pendientes estimadas en escala log-log.
+- **Cómo ejecutar:** con Python 3.10 o superior, desde la carpeta `lab_04`:
+  ```bash
+  python -m pip install matplotlib pandas
+  python test.py
+  python analisis.py
+  ```
+- **Archivos principales:** `Quadtree.py` contiene la estructura; `test.py` ejecuta las pruebas y genera `analisis_pruebas.txt`; `analisis.py` ejecuta el benchmark y genera `analisis_rendimiento.txt`.
+- **Visualizaciones:** `lab_04/imagenes/` contiene gráficos de las divisiones del árbol y de las búsquedas, además de gráficos de construcción y rendimiento para range search, 1-NN y k-NN.
+- **Documentación, resultados y metodología:** [Laboratorio 4](lab_04/README.md).
+
 ### Reto 1 - Hashing y Merkle Tree
 - **Descripción:** Reto centrado en funciones hash y la construcción de un árbol Merkle para validar integridad y estructura de datos.
 - **Archivo Principal:** `reto_hashing_merkle_tree.ipynb` (Notebook Jupyter).
@@ -70,4 +94,4 @@ estructuras_datos_2026_2/
 
 ---
 
-*Última actualización: 2026-10-07*
+*Última actualización: 27-10-2026*
