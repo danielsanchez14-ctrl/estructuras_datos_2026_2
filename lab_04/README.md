@@ -77,18 +77,31 @@ pruebas y visualizaciones.
 
 ## Cómo ejecutar
 
-Se requiere **Python 3.10 o superior**. Desde esta carpeta, instala las
-dependencias y ejecuta:
+Se requiere **Python 3.10 o superior** y las dependencias `matplotlib` y
+`pandas`. Desde la carpeta `lab_04`, instala las dependencias y ejecuta las
+pruebas:
 
 ```bash
-pip install matplotlib
-pip install pandas
+python -m pip install matplotlib pandas
 python test.py
+```
+
+`test.py` ejecuta las pruebas unitarias, genera el reporte
+`analisis_pruebas.txt` y crea en `imagenes/` las visualizaciones
+`nearest_neighbors.png`, `quadtree_divisions.png` y `range_search.png`.
+
+Para ejecutar además el análisis de rendimiento comparativo entre Quadtree y
+fuerza bruta:
+
+```bash
 python analisis.py
 ```
 
-`matplotlib` se utiliza para generar las visualizaciones y `pandas` para
-presentar tablas de resultados en las pruebas.
+Este análisis verifica primero que ambos algoritmos produzcan resultados
+equivalentes; luego mide consultas y construcción para distintos tamaños de
+entrada. Genera el reporte `analisis_rendimiento.txt` y las gráficas
+`analisis_construccion.png`, `analisis_knn.png`, `analisis_nn.png` y
+`analisis_range.png` en `imagenes/`.
 
 ## Estructura de la carpeta
 
@@ -99,7 +112,12 @@ lab_04/
 ├── test.py
 ├── analisis.py
 ├── analisis_pruebas.txt
+├── analisis_rendimiento.txt
 └── imagenes/
+    ├── analisis_construccion.png
+    ├── analisis_knn.png
+    ├── analisis_nn.png
+    ├── analisis_range.png
     ├── nearest_neighbors.png
     ├── quadtree_divisions.png
     └── range_search.png
@@ -107,13 +125,13 @@ lab_04/
 
 - `Quadtree.py`: implementación del PR Quadtree y de las operaciones de
   búsqueda espacial.
-- `test.py`: pruebas unitarias, comparación con fuerza bruta y generación de
-  visualizaciones.
-- `analisis.py`: archivo destinado a las métricas de rendimiento y discusión
-  comparativa.
-- `analisis_pruebas.txt`: resultados registrados de las pruebas tras ejecutar `test.py`.
-- `imagenes/`: gráficos de divisiones del árbol, búsqueda por rango y vecinos
-  más cercanos.
+- `test.py`: pruebas unitarias, comparación con fuerza bruta y generación del
+  reporte y las visualizaciones de las pruebas.
+- `analisis.py`: verificación de resultados y análisis comparativo del
+  rendimiento del Quadtree frente a fuerza bruta.
+- `analisis_pruebas.txt`: reporte generado al ejecutar `test.py`.
+- `analisis_rendimiento.txt`: reporte generado al ejecutar `analisis.py`.
+- `imagenes/`: gráficos de las pruebas y del análisis de rendimiento.
 
 ## Pruebas unitarias, generación de visualizaciones y reporte de resultados
 
